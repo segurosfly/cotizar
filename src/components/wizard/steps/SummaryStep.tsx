@@ -9,7 +9,7 @@ type SummaryStepProps = {
   submitForm: () => void;
 };
 
-const SummaryStep: React.FC<SummaryStepProps> = ({ data, updateData, prevStep, submitForm }) => {
+const SummaryStep: React.FC<SummaryStepProps> = ({ prevStep, submitForm }) => {
   // Esta función se llamará cuando se envíe el formulario
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();

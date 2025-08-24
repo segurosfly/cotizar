@@ -26,7 +26,7 @@ export default function CompletedPage() {
         } else {
           notFound();
         }
-      } catch (error) {
+      } catch {
         notFound();
       } finally {
         setLoading(false);

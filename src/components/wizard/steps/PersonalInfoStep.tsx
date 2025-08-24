@@ -13,7 +13,7 @@ type PersonalInfoStepProps = {
   nextStep: () => void;
 };
 
-const PersonalInfoStep: React.FC<PersonalInfoStepProps> = ({ data, updateData, nextStep }) => {
+const PersonalInfoStep: React.FC<PersonalInfoStepProps> = ({ nextStep }) => {
   // Esta función se llamará cuando se envíe el formulario
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();

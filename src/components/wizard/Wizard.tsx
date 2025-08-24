@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState } from 'react';
 import dynamic from 'next/dynamic';
 
@@ -79,7 +81,7 @@ const Wizard: React.FC = () => {
   const [wizardData, setWizardData] = useState<WizardData>(initialData);
   
   // Función para actualizar los datos del wizard
-  const updateWizardData = (section: keyof WizardData, data: any) => {
+  const updateWizardData = (section: keyof WizardData, data: Partial<WizardData[keyof WizardData]>) => {
     setWizardData(prev => ({
       ...prev,
       [section]: {

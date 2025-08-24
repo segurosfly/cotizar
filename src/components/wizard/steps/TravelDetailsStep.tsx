@@ -14,7 +14,7 @@ type TravelDetailsStepProps = {
   prevStep: () => void;
 };
 
-const TravelDetailsStep: React.FC<TravelDetailsStepProps> = ({ data, updateData, nextStep, prevStep }) => {
+const TravelDetailsStep: React.FC<TravelDetailsStepProps> = ({ nextStep, prevStep }) => {
   // Esta función se llamará cuando se envíe el formulario
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();

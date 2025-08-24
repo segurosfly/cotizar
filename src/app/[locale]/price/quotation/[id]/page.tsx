@@ -13,9 +13,9 @@ export function generateStaticParams() {
 
 // Tipo para los parámetros de la página
 type QuotationPageProps = {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 };
 
 // Datos falsos para simular una cotización
@@ -44,8 +44,8 @@ const getFakeQuotationData = (id: string) => {
   };
 };
 
-export default function QuotationPage({ params }: QuotationPageProps) {
-  const { id } = params;
+export default async function QuotationPage({ params }: QuotationPageProps) {
+  const { id } = await params;
   const quotation = getFakeQuotationData(id);
 
   return (

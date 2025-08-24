@@ -23,7 +23,6 @@ const Navbar = () => {
   };
   
   const quoterId = getQuoterIdFromPath();
-  const locale = pathname?.split('/')[1] || 'es';
 
   return (
     <nav className="flex items-center justify-between py-4 px-6 md:px-10 bg-white shadow-sm">

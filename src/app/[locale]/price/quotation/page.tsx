@@ -1,7 +1,5 @@
 import React from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
-import Wizard from '@/components/wizard/Wizard';
 
 // ID de ejemplo para la demostración
 const EXAMPLE_QUOTATION_ID = '223a10f5-6d87-4f49-b0de-ba73e097c1c4';

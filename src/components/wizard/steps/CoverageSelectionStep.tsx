@@ -15,7 +15,7 @@ type CoverageSelectionStepProps = {
   prevStep: () => void;
 };
 
-const CoverageSelectionStep: React.FC<CoverageSelectionStepProps> = ({ data, updateData, nextStep, prevStep }) => {
+const CoverageSelectionStep: React.FC<CoverageSelectionStepProps> = ({ nextStep, prevStep }) => {
   // Esta función se llamará cuando se envíe el formulario
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();

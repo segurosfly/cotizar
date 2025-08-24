@@ -8,7 +8,17 @@ export default function PaymentPage() {
   const id = params.id as string;
   const [loading, setLoading] = useState(true);
   const [validId, setValidId] = useState(false);
-  const [quoterData, setQuoterData] = useState<any>(null);
+  const [quoterData, setQuoterData] = useState<{
+    countryOrigin?: { name: string };
+    country_destinations?: Array<{ name: string } | string>;
+    initial_date: string;
+    final_date: string;
+    end_date: string;
+    passengers?: Array<{ name: string; lastName: string }>;
+    passengers_ages?: Array<{ age: number; ageId: number }>;
+    selectedPlan?: { name: string; price: number };
+    resumen?: string;
+  } | null>(null);
   const [paymentData, setPaymentData] = useState({
     cardNumber: '',
     expiryDate: '',
@@ -37,7 +47,7 @@ export default function PaymentPage() {
         } else {
           notFound();
         }
-      } catch (error) {
+      } catch {
         notFound();
       } finally {
         setLoading(false);
@@ -235,7 +245,7 @@ return (
                     <span className="font-medium text-blue-900">
                       {quoterData.countryOrigin?.name || 'Origen'} → {' '}
                       {quoterData.country_destinations && Array.isArray(quoterData.country_destinations) 
-                        ? quoterData.country_destinations.map((dest: any) => dest.name || dest).slice(0, 2).join(', ')
+                        ? quoterData.country_destinations.map((dest) => typeof dest === 'string' ? dest : dest.name).slice(0, 2).join(', ')
                         : 'Destino'
                       }
                       {quoterData.country_destinations && quoterData.country_destinations.length > 2 && 

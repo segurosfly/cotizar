@@ -1,7 +1,7 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { useParams, notFound } from 'next/navigation';
+import { useParams } from 'next/navigation';
 
 interface Benefit {
   id: number;
@@ -15,6 +15,72 @@ interface Benefit {
     benefitsGroupName: string;
     obs: string;
   } | null;
+}
+
+interface PassengerInfo {
+  name: string;
+  age: number;
+  document?: string;
+}
+
+interface ContactInfo {
+  name: string;
+  email: string;
+  phone: string;
+  address?: string;
+}
+
+interface ContactEmergency {
+  name: string;
+  phone: string;
+  relationship: string;
+}
+
+interface InvoiceInfo {
+  companyName?: string;
+  taxId?: string;
+  address?: string;
+}
+
+interface Voucher {
+  id: string;
+  type: string;
+  amount: number;
+  status: string;
+}
+
+interface AgeItem {
+  age_id: number;
+  number: number;
+}
+
+interface PassengerForm {
+  name: string;
+  lastName: string;
+  birthDate: string;
+  documentType: string;
+  documentNumber: string;
+  ageId?: number;
+}
+
+interface WizardStep1 {
+  passengers?: PassengerInfo[];
+  [key: string]: unknown;
+}
+
+interface WizardStep2 {
+  email?: string;
+  [key: string]: unknown;
+}
+
+interface WizardStep3 {
+  selectedEmergencyContact?: ContactEmergency;
+  [key: string]: unknown;
+}
+
+interface WizardStep4 {
+  selectedInvoicePerson?: InvoiceInfo;
+  [key: string]: unknown;
 }
 
 interface Plan {
@@ -34,8 +100,8 @@ interface QuoterData {
   initial_date: Date;
   end_date: Date;
   countryOriginId: number;
-  country_destinations: any;
-  ages: any;
+  country_destinations: Country[];
+  ages: number[];
   passengers_ages: number;
   productId: number;
   subproductId?: number;
@@ -44,19 +110,19 @@ interface QuoterData {
   resumen: string;
   quoterStep: number;
   quoterStatus: string;
-  passengersInfo?: any;
-  vouchers?: any;
-  contactInfo?: any;
-  contactNumber?: any;
-  benefits?: any;
-  contactEmergency?: any;
-  invoiceInfo?: any;
-  countryOrigin: any;
+  passengersInfo?: PassengerInfo[];
+  vouchers?: Voucher[];
+  contactInfo?: ContactInfo;
+  contactNumber?: string;
+  benefits?: Benefit[];
+  contactEmergency?: ContactEmergency;
+  invoiceInfo?: InvoiceInfo;
+  countryOrigin: Country;
   // Datos estructurados por pasos del wizard
-  step1?: any;
-  step2?: any;
-  step3?: any;
-  step4?: any;
+  step1?: WizardStep1;
+  step2?: WizardStep2;
+  step3?: WizardStep3;
+  step4?: WizardStep4;
 }
 
 interface ValidationResponse {
@@ -65,10 +131,10 @@ interface ValidationResponse {
   data?: {
     quoter: QuoterData;
     countries?: Country[];
-    step1?: any;
-    step2?: any;
-    step3?: any;
-    step4?: any;
+    step1?: WizardStep1;
+    step2?: WizardStep2;
+    step3?: WizardStep3;
+    step4?: WizardStep4;
   } | null;
   error?: string;
 }
@@ -264,12 +330,12 @@ export default function PlanDetailsPage() {
     });
   };
 
-  const initializePassengers = (agesData?: any[]) => {
+  const initializePassengers = (agesData?: AgeItem[]) => {
     if (!agesData || !Array.isArray(agesData)) {
       return;
     }
 
-    const passengers: any[] = [];
+    const passengers: PassengerForm[] = [];
     
     // Iterar sobre cada elemento del array ages
     agesData.forEach((ageItem) => {
@@ -357,10 +423,10 @@ export default function PlanDetailsPage() {
           
           setFormData(prev => ({
             ...prev,
-            step1: step1 ? { ...prev.step1, ...step1 } : prev.step1,
-            step2: step2 ? { ...prev.step2, ...step2 } : prev.step2,
-            step3: step3 ? { ...prev.step3, ...step3 } : prev.step3,
-            step4: step4 ? { ...prev.step4, ...step4 } : prev.step4
+            step1: step1 ? { ...prev.step1, ...step1 as Partial<typeof prev.step1> } : prev.step1,
+            step2: step2 ? { ...prev.step2, ...step2 as Partial<typeof prev.step2> } : prev.step2,
+            step3: step3 ? { ...prev.step3, ...step3 as Partial<typeof prev.step3> } : prev.step3,
+            step4: step4 ? { ...prev.step4, ...step4 as Partial<typeof prev.step4> } : prev.step4
           }));
 
           // Marcar pasos como completados si tienen datos
